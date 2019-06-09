@@ -28,9 +28,22 @@ public class UnityChanController : MonoBehaviour {
         //得点（追加）
         private int score = 0;
         
+        //左ボタン押下の判定（追加）
+        private bool isLButtonDown = false;
+        //右ボタン押下の判定（追加）
+        private bool isRButtonDown = false;
+        
         // Use this for initialization
         void Start () {
-                
+
+                //ゲーム終了ならUnityちゃんの動きを減衰する
+                if (this.isEnd) {
+                        this.forwardForce *= this.coefficient;
+                        this.turnForce *= this.coefficient;
+                        this.upForce *= this.coefficient;
+                        this.myAnimator.speed *= this.coefficient;
+                }
+
                 //アニメータコンポーネントを取得
                 this.myAnimator = GetComponent<Animator>();
                 
@@ -44,6 +57,16 @@ public class UnityChanController : MonoBehaviour {
 
                 //シーン中のscoreTextオブジェクトを取得（追加）
                 this.scoreText = GameObject.Find("ScoreText");
+
+                //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
+                //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
+                if ((Input.GetKey (KeyCode.LeftArrow) || this.isLButtonDown) && -this.movableRange < this.transform.position.x) {
+                        //左に移動
+                        this.myRigidbody.AddForce (-this.turnForce, 0, 0);
+                } else if ((Input.GetKey (KeyCode.RightArrow) || this.isRButtonDown) && this.transform.position.x < this.movableRange) {
+                        //右に移動
+                        this.myRigidbody.AddForce (this.turnForce, 0, 0);
+                } 
         }
 
         // Update is called once per frame
@@ -82,6 +105,14 @@ public class UnityChanController : MonoBehaviour {
                 }
         }
 
+        //ジャンプボタンを押した場合の処理（追加）
+        public void GetMyJumpButtonDown() {
+                if (this.transform.position.y < 0.5f) {
+                        this.myAnimator.SetBool ("Jump", true);
+                        this.myRigidbody.AddForce (this.transform.up * this.upForce);
+                }
+        }
+
                 //トリガーモードで他のオブジェクトと接触した場合の処理（追加）
         void OnTriggerEnter(Collider other) {
 
@@ -114,5 +145,22 @@ public class UnityChanController : MonoBehaviour {
                         //接触したコインのオブジェクトを破棄（追加）
                         Destroy (other.gameObject);
                 }
+        }
+                //左ボタンを押し続けた場合の処理（追加）
+        public void GetMyLeftButtonDown() {
+                this.isLButtonDown = true;
+        }
+        //左ボタンを離した場合の処理（追加）
+        public void GetMyLeftButtonUp() {
+                this.isLButtonDown = false;
+        }
+
+        //右ボタンを押し続けた場合の処理（追加）
+        public void GetMyRightButtonDown() {
+                this.isRButtonDown = true;
+        }
+        //右ボタンを離した場合の処理（追加）
+        public void GetMyRightButtonUp() {
+                this.isRButtonDown = false;
         }
 }
