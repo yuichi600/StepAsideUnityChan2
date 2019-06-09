@@ -81,12 +81,11 @@ public class UnityChanController : MonoBehaviour {
                 }
                 //Unityちゃんに前方向の力を加える
                 this.myRigidbody.AddForce (this.transform.forward * this.forwardForce);
-
-                //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる
-                if ((Input.GetKey (KeyCode.LeftArrow) ) && -this.movableRange < this.transform.position.x) {
+                //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
+                if ((Input.GetKey (KeyCode.LeftArrow) || this.isLButtonDown) && -this.movableRange < this.transform.position.x) {
                         //左に移動
                         this.myRigidbody.AddForce (-this.turnForce, 0, 0);
-                } else if ((Input.GetKey (KeyCode.RightArrow)) && this.transform.position.x < this.movableRange) {
+                } else if ((Input.GetKey (KeyCode.RightArrow) || this.isRButtonDown) && this.transform.position.x < this.movableRange) {
                         //右に移動
                         this.myRigidbody.AddForce (this.turnForce, 0, 0);
                 } 
@@ -137,7 +136,6 @@ public class UnityChanController : MonoBehaviour {
 
                         //ScoreText獲得した点数を表示(追加)
                         this.scoreText.GetComponent<Text> ().text = "Score " + this.score + "pt";
-
                         
                         //パーティクルを再生（追加）
                         GetComponent<ParticleSystem> ().Play ();

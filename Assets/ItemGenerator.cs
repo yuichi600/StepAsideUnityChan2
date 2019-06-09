@@ -11,15 +11,44 @@ public class ItemGenerator : MonoBehaviour {
         //スタート地点
         private int startPos = -160;
         //ゴール地点
-        private int goalPos = 120;
+        private int goalPos = 80;
         //アイテムを出すx方向の範囲
         private float posRange = 3.4f;
+		//UnityChanの位置
+		public GameObject unityPlace;
+		//アイテム間距離計測用
+		public float distance = 0;
+
 
         // Use this for initialization
         void Start () {
-                //一定の距離ごとにアイテムを生成
-                for (int i = startPos; i < goalPos; i+=15) {
-                        //どのアイテムを出すのかをランダムに設定
+
+			this.unityPlace = GameObject.Find("unitychan");
+
+        }
+
+        // Update is called once per frame
+        void Update () {
+						//最初の15m移動時の処理
+			if(this.distance==0){
+				this.distance=this.unityPlace.transform.position.z;
+			//継続的な15m移動時の処理
+			}else{
+				//15m以上の距離を移動したら処理を実行
+				if((this.distance-this.unityPlace.transform.position.z)>15||(this.distance-this.unityPlace.transform.position.z)<-15){
+					//追加系の処理
+					this.distance=this.unityPlace.transform.position.z;
+					//goalPos以降は作成しない
+					if(goalPos>this.unityPlace.transform.position.z){
+						this.CreateItem(this.unityPlace.transform.position.z+40);
+					}
+					
+				}
+			}
+        }
+
+		void CreateItem(float i){
+			//どのアイテムを出すのかをランダムに設定
                         int num = Random.Range (1, 11);
                         if (num <= 2) {
                                 //コーンをx軸方向に一直線に生成
@@ -47,11 +76,5 @@ public class ItemGenerator : MonoBehaviour {
                                         }
                                 }
                         }
-                }
-        }
-
-        // Update is called once per frame
-        void Update () {
-
-        }
+		}
 }

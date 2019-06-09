@@ -20,7 +20,7 @@ public class CoinController : MonoBehaviour {
                 this.transform.Rotate (0, 3, 0);
 				//Destroy(this.gameObject);
 				distance = unityPlace.transform.position.z-this.transform.position.z;
-				if(distance>0){
+				if(distance>30){
 					Destroy(this.gameObject);
 				}				
         }

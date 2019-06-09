@@ -637,6 +637,8 @@ MonoBehaviour:
   carPrefab: {fileID: 1190484160465188, guid: ecfb40a083c46a44e82ae29e122bd92f, type: 2}
   coinPrefab: {fileID: 1518628335895980, guid: 5dfa6cad58f36684abcc751cf7063dc2, type: 2}
   conePrefab: {fileID: 1003587639730774, guid: b66c7c36e5468c44392f57d0f5927b36, type: 2}
+  unityPlace: {fileID: 0}
+  distance: 0
 --- !u!4 &384870613
 Transform:
   m_ObjectHideFlags: 0
@@ -4617,18 +4619,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1193928513}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1193928513
@@ -4827,7 +4818,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -4851,13 +4842,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1583641163}
-  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 10, z: -260}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1583641168
 MonoBehaviour:
   m_ObjectHideFlags: 0
