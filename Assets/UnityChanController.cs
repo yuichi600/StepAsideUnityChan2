@@ -119,12 +119,16 @@ public class UnityChanController : MonoBehaviour {
                 if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag") {
                         this.isEnd = true;
                         //stateTextにGAME OVERを表示（追加）
-                        this.stateText.GetComponent<Text>().text = "GAME OVER";
+                        
                 }
 
                 //ゴール地点に到達した場合（追加）
                 if (other.gameObject.tag == "GoalTag") {
                         this.isEnd = true;
+                        //パーティクルを再生（追加）
+                        GetComponent<ParticleSystem> ().Play ();
+                        this.stateText.GetComponent<Text>().text = "Welcom VIDEOG WORLD !";
+                        
                         //stateTextにGAME CLEARを表示（追加）
                         this.stateText.GetComponent<Text>().text = "CLEAR!!";
                 }     
@@ -140,8 +144,8 @@ public class UnityChanController : MonoBehaviour {
                         //パーティクルを再生（追加）
                         GetComponent<ParticleSystem> ().Play ();
 
-                        //接触したコインのオブジェクトを破棄（追加）
-                        Destroy (other.gameObject);
+                        Debug.Log("GETT");
+
                 }
         }
                 //左ボタンを押し続けた場合の処理（追加）
