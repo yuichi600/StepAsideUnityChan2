@@ -115,13 +115,6 @@ public class UnityChanController : MonoBehaviour {
                 //トリガーモードで他のオブジェクトと接触した場合の処理（追加）
         void OnTriggerEnter(Collider other) {
 
-                //障害物に衝突した場合（追加）
-                if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag") {
-                        this.isEnd = true;
-                        //stateTextにGAME OVERを表示（追加）
-                        
-                }
-
                 //ゴール地点に到達した場合（追加）
                 if (other.gameObject.tag == "GoalTag") {
                         this.isEnd = true;
@@ -133,20 +126,23 @@ public class UnityChanController : MonoBehaviour {
                         this.stateText.GetComponent<Text>().text = "CLEAR!!";
                 }     
 
+                
+        }
+        void OnCollisionEnter(Collision other) {
                 //コインに衝突した場合（追加）
                 if (other.gameObject.tag == "CoinTag") {
                         // スコアを加算(追加)
-                        this.score += 10;
-
-                        //ScoreText獲得した点数を表示(追加)
-                        this.scoreText.GetComponent<Text> ().text = "Score " + this.score + "pt";
-                        
+                        this.score += 10;                        
                         //パーティクルを再生（追加）
                         GetComponent<ParticleSystem> ().Play ();
 
-                        Debug.Log("GETT");
-
+                        if (this.transform.position.y < 0.5f) {
+                                this.myAnimator.SetBool ("Jump", true);
+                                this.myRigidbody.AddForce (this.transform.up * this.upForce);
+                        }
                 }
+                Debug.Log("Collider");
+        
         }
                 //左ボタンを押し続けた場合の処理（追加）
         public void GetMyLeftButtonDown() {
